@@ -24,9 +24,9 @@ STATIC_DIR=os.path.join(BASE_DIR,'static')
 SECRET_KEY = '1m0sddqrq#_kr=0i40j6qa4-%bpc&pa=w=h_pm7upj6z=!2z#6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -135,9 +135,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[STATIC_DIR,]
 MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER="sahoomca6@gmail.com"
-EMAIL_HOST_PASSWORD="Ipad$54321"
+# EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST="smtp.gmail.com"
+# EMAIL_PORT=587
+# EMAIL_USE_TLS=True
+# EMAIL_HOST_USER="sahoomca6@gmail.com"
+# EMAIL_HOST_PASSWORD="Ipad$54321"
