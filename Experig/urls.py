@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^incentives/',views.incentives),
     url(r'^project_optimization/',views.project_optimization),
     url(r'^project_detail/',views.project_detail),
+    url(r'^create_project/',views.create_project),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

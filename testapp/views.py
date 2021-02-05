@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
-from testapp.models import Company_Register,Project_Skills,Incentiv,Plans,Project_Detailss
+from testapp.models import Company_Register,Project_Skills,Incentiv,Plans,Project_Detailss,Create_Project
 # Create your views here.
 def company_landing_page(request):
-	return render(request,'company_landing_page.html')
+    return render(request,'company_landing_page.html')
 def signin(request):
     if request.method=="POST":
         username=request.POST['username']
@@ -19,44 +19,44 @@ def signin(request):
     else:
         return render(request,'sign_in_modal_to_be_opened.html')
 def company_register(request):
-	return render(request,'company_register.html')
+    return render(request,'company_register.html')
 def multistepform_save(request):
     if request.method=="POST":
-    	companyname=request.POST["companyname"]
-    	cityname=request.POST["cityname"]
-    	username=request.POST['username']
-    	first_name=request.POST["first_name"]
-    	last_name=request.POST["last_name"]
-    	
-    	email=request.POST["email"]
-    	password=request.POST["password"]
-    	cnf_password=request.POST["cnf_password"]
-    	jobtitle=request.POST["jobtitle"]
-    	mobno=request.POST["mobno"]
-    	if User.objects.filter(username=username).exists():
-    		messages.info(request,'Username Taken')
-    		return redirect('/company_register')
-    	elif User.objects.filter(email=email).exists():
-    		messages.info(request,'Email Id Taken') 
-    		return redirect('/company_register')
-    	elif password != cnf_password:
-    		messages.info(request,'Confirm Password not Match') 
-    		return redirect('/company_register')
-    	else:
-    		user=User.objects.create_user(username=username,email=email,first_name=first_name,last_name=last_name,password=password)
-    		user.save()
-    		user_id=user.id
-    		cr=Company_Register(user_id=user_id,companyname=companyname,cityname=cityname,jobtitle=jobtitle,mobno=mobno,cnf_password=cnf_password)
-    		cr.save()
-    		messages.success(request,"Data Save Successfully")
-    		return redirect('/company_register')
+        companyname=request.POST["companyname"]
+        cityname=request.POST["cityname"]
+        username=request.POST['username']
+        first_name=request.POST["first_name"]
+        last_name=request.POST["last_name"]
+        
+        email=request.POST["email"]
+        password=request.POST["password"]
+        cnf_password=request.POST["cnf_password"]
+        jobtitle=request.POST["jobtitle"]
+        mobno=request.POST["mobno"]
+        if User.objects.filter(username=username).exists():
+            messages.info(request,'Username Taken')
+            return redirect('/company_register')
+        elif User.objects.filter(email=email).exists():
+            messages.info(request,'Email Id Taken') 
+            return redirect('/company_register')
+        elif password != cnf_password:
+            messages.info(request,'Confirm Password not Match') 
+            return redirect('/company_register')
+        else:
+            user=User.objects.create_user(username=username,email=email,first_name=first_name,last_name=last_name,password=password)
+            user.save()
+            user_id=user.id
+            cr=Company_Register(user_id=user_id,companyname=companyname,cityname=cityname,jobtitle=jobtitle,mobno=mobno,cnf_password=cnf_password)
+            cr.save()
+            messages.success(request,"Data Save Successfully")
+            return redirect('/company_register')
 def dashboard_menu(request):
-	return render(request,'dashboard_with_all_the_menus.html')
+    return render(request,'dashboard_with_all_the_menus.html')
 def logout(request):
     auth.logout(request)
     return redirect('/signin')
 def new_project_screen(request):
-	return render(request,'new_project_screen1.html')
+    return render(request,'new_project_screen1.html')
 def project_skill(request):
     if request.method=='POST':
         skill=request.POST.getlist('skill')
@@ -114,4 +114,31 @@ def project_detail(request):
         # data_pro=data[0].id
         # print('sdfhgdgfdfgdfksgdfdfysy',data_pro)
         return render(request,'talent_pool_project_-_project_details.html')
-
+def create_project(request):
+    if request.method=='POST':
+        project_title=request.POST['project_title']
+        project_type=request.POST['project_type']
+        deadline_date=request.POST['deadline_date']
+        choose_template=request.POST['choose_template']
+        description=request.POST['description']
+        skill=request.POST.getlist('skill')
+        nda=request.POST['nda']
+        cash_prize=request.POST['cash_prize']
+        cash_prize_description=request.POST['cash_prize_description']
+        letter_of_recommendation=request.POST['letter_of_recommendation']
+        letter_of_recommendation_description=request.POST['letter_of_recommendation_description']
+        internsip_opportunity=request.POST['internsip_opportunity']
+        internsip_opportunity_description=request.POST['internsip_opportunity_description']
+        job_opportunity=request.POST['job_opportunity']
+        job_opportunity_description=request.POST['job_opportunity_description']
+        team_lunch_with_ceo=request.POST['team_lunch_with_ceo']
+        team_lunch_with_ceo_description=request.POST['team_lunch_with_ceo_description']
+        plan=request.POST['plan']
+        user=User.objects.all()
+        user_id=user[0].id
+        data=Create_Project(user_id=user_id,project_title=project_title,project_type=project_type,deadline_date=deadline_date,choose_template=choose_template,description=description,skill=skill,nda=nda,cash_prize=cash_prize,cash_prize_description=cash_prize_description,letter_of_recommendation=letter_of_recommendation,letter_of_recommendation_description=letter_of_recommendation_description,internsip_opportunity=internsip_opportunity,internsip_opportunity_description=internsip_opportunity_description,job_opportunity=job_opportunity,job_opportunity_description=job_opportunity_description,team_lunch_with_ceo=team_lunch_with_ceo,team_lunch_with_ceo_description=team_lunch_with_ceo_description,plan=plan)
+        data.save()
+        messages.success(request,"Data Save Successfully")
+        return redirect('/create_project')
+    else:
+        return render(request,'create-your-project.html')

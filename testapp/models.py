@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
-
 class Company_Register(models.Model):
 	user=models.ForeignKey(User, related_name='Company_Register', on_delete=models.CASCADE)
 	companyname=models.CharField(max_length=255)
@@ -35,3 +34,24 @@ class Project_Detailss(models.Model):
 	deadline_date=models.CharField(max_length=255)
 	choose_template=models.CharField(max_length=255)
 	description=models.TextField()
+class Create_Project(models.Model):
+	user=models.ForeignKey(User, related_name='Create_Project', on_delete=models.CASCADE)
+	project_title=models.CharField(max_length=255)
+	project_type=models.CharField(max_length=255)
+	deadline_date=models.CharField(max_length=255)
+	choose_template=models.CharField(max_length=255)
+	description=models.TextField()
+	skill=models.CharField(max_length=500)
+	nda=models.CharField(max_length=255)
+	cash_prize=models.CharField(max_length=140, null=True, default=None, blank=True)
+	cash_prize_description=models.TextField(null=True, default=None, blank=True)
+	letter_of_recommendation=models.CharField(max_length=140, null=True, default=None, blank=True)
+	letter_of_recommendation_description=models.TextField(null=True, default=None, blank=True)
+	internsip_opportunity=models.CharField(max_length=140, null=True, default=None, blank=True)
+	internsip_opportunity_description=models.TextField(null=True, default=None, blank=True)
+	job_opportunity=models.CharField(max_length=140, null=True, default=None, blank=True)
+	job_opportunity_description=models.TextField(null=True, default=None, blank=True)
+	team_lunch_with_ceo=models.CharField(max_length=140, null=True, default=None, blank=True)
+	team_lunch_with_ceo_description=models.TextField(null=True, default=None, blank=True)
+	plan=models.CharField(max_length=140, null=True, default=None, blank=True)
+
