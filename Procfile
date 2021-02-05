@@ -1,1 +1,1 @@
-web: gunicorn experig-app.wsgi --log-file
+web: gunicorn Experig.wsgi
